@@ -9,7 +9,7 @@ dlib=open("dlib","r")
 code=dlib.read()
 dlib.close()
 ln=1
-av=join(re.findall('v=(.*?);',code.replace("\n",";")))
+av=re.findall('v=(.*?);',code.replace("\n",";"))[0]
 vl="https://raw.githubusercontent.com/BlackFireFox/dlib/master/dlib"
 print "Connecting..."
 try:
@@ -18,7 +18,7 @@ try:
 	site=urllib.urlopen(vl)
 	page=site.read()
 	page=page.replace("\n",";")
-	ov=join(re.findall('v=(.*?);',page.replace("\n",";")))
+	ov=re.findall('v=(.*?);',page.replace("\n",";"))[0]
 	print "Actual version:",bcolors.BOLD+bcolors.OKGREEN+ov+bcolors.ENDC
 	if ov==av:
 		print "Your version:",bcolors.BOLD+bcolors.OKGREEN+av
@@ -54,4 +54,4 @@ except urllib2.HTTPError, e:
 	print(e.code)
 except urllib2.URLError, e:
 	print bcolors.FAIL+bcolors.BOLD+"Error:"+bcolors.ENDC
-print(e.args)
+	print(e.args)
